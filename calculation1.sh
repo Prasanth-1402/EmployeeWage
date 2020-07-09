@@ -2,20 +2,25 @@
 
 
 #CONSTANTS
-IS_PRESENT=1
-IS_ABSENT=0
-<<<<<<< HEAD
+IS_FULL_TIME=1
+IS_PART_TIME=2
 WAGE_PER_HR=20
 FULL_DAY_HR=8
-=======
->>>>>>> master
+PART_TIME_HR=4
 
-att=$((RANDOM%2))
+att=$((RANDOM%3))
 
-if (($att==$IS_PRESENT))
-then
+case $att in 
+$IS_FULL_TIME)
 	dailyWage=$((WAGE_PER_HR*FULL_DAY_HR))
-	echo "Salary provided for an employee per day is " $dailyWage
-else
-	echo "Sorry, the Employee is Absent"
-fi
+	echo "Salary provided for a Full Time employee per day is " $dailyWage
+		;;
+$IS_PART_TIME)
+	dailyWage=$((WAGE_PER_HR*PART_TIME_HR))
+	echo "Salary provided for a Part Time employee per day is " $dailyWage
+		;;
+*) 	
+	echo "Sorry, Employee is Absent"
+		;;
+esac
+ 
