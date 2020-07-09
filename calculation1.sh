@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/local/bin/bash 
 
 
 #CONSTANTS
@@ -29,46 +29,55 @@ case $att in
 $IS_FULL_TIME)
 	echo "THIS IS A FULL TIME EMPLOYEE"
 	hours=8
-
+	counter=1
 	while (( $hours<=$hoursLimit ))
 	do
 		totalwage=$((hours*WAGE_PER_HR))
-		echo $totalwage
-		DailyTotalWage[$totalwage]=0	
+		DailyTotalWage[$counter]=$totalwage	
+                counter=$((counter+1))
 		hours=$((hours+8))	
 	done
 	echo "Salary provided for a Full Time employee  is " $totalwage
 	hours=8
 
-	for(( i=$((hours*WAGE_PER_HR)); $i<=totalwage; i=$i+$((hours*WAGE_PER_HR))))
-	do	
-		DailyTotalWage[$i]=$totalwage
+
+	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE BEFORE ADDING TOTAL WAGE :     ${DailyTotalWage[*]}
+
+        echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  :     ${!DailyTotalWage[*]}
+                
+
+	for(( i=1; $i<$counter; i++))
+	do
+		DailyTotalWage[$i]=${DailyTotalWage[$i]}+$totalwage
+	
 	done
 
-
-	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE :     ${DailyTotalWage[*]}
-      
+	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE AFTER ADDING TOTAL WAGE :     ${DailyTotalWage[*]}
 	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  : 	  ${!DailyTotalWage[*]}
 		;;
 $IS_PART_TIME)
 	echo "THIS IS A PART TIME EMPLOYEE"
 	hours=4
+	counter=1
 	while (( $hours<=$hoursLimit ))
         do
                 totalwage=$((hours*WAGE_PER_HR))
-                echo $totalwage
-                DailyTotalWage[$totalwage]=0
+                DailyTotalWage[$counter]=$totalwage
+		counter=$((counter+1))
                 hours=$((hours+4))
         done
         echo "Salary provided for a Part Time employee  is " $totalwage
         hours=4
 
-        for(( i=$((hours*WAGE_PER_HR)); $i<=totalwage; i=$i+$((hours*WAGE_PER_HR))))
+	echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE BEFORE ADDING TOTAL WAGE :   ${DailyTotalWage[*]}
+        echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  :   ${!DailyTotalWage[*]}
+
+        for(( i=1; $i<$counter; i++))
         do
-                DailyTotalWage[$i]=$totalwage
+                DailyTotalWage[$i]=${DailyTotalWage[$i]}+$totalwage
         done
 
-        echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE : 	${DailyTotalWage[*]}
+        echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE AFTER ADDING TOTAL WAGE : 	${DailyTotalWage[*]}
         echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  : 	${!DailyTotalWage[*]}
                 ;;
 
