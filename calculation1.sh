@@ -15,24 +15,32 @@ hours=0
 days=0
 att=$((RANDOM%3))
 
+
+function getWorkHours(){
+	read -p "Enter the Work Hours :" Hours
+	hoursLimit=$Hours
+}
+
+getWorkHours
+
 case $att in 
 $IS_FULL_TIME)
 	echo "THIS IS A FULL TIME EMPLOYEE"
-	while (( $hours<100 && $days<20 ))
+	hours=8
+	while (( $hours<=hoursLimit ))
 	do
-		wage=$((hours*days*WAGE_PER_HR))
+		wage=$((hours*WAGE_PER_HR))
 		hours=$((hours+8))	
-		days=$((days+1))
 	done
 	echo "Salary provided for a Full Time employee  is " $wage
 		;;
 $IS_PART_TIME)
 	echo "THIS IS A PART TIME EMPLOYEE"
-	while (( $hours<100 && $days<20 ))
+	hours=4
+	while (( $hours<=hoursLimit ))
 	do
-		Wage=$((WAGE_PER_HR*hours*days))
+		Wage=$((WAGE_PER_HR*hours))
 		hours=$((hours+4))
-		days=$((days+1))
 	done
 	echo "Salary provided for a Part Time employee  is " $Wage
 		;;
