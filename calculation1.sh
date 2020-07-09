@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+
 #CONSTANTS
 IS_PRESENT=1
 IS_ABSENT=0
