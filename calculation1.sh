@@ -11,7 +11,7 @@ att=$((RANDOM%2))
 if (($att==$IS_PRESENT))
 then
 	dailyWage=$((WAGE_PER_HR*FULL_DAY_HR))
-	echo "Salary provided per is " $dailyWage
+	echo "Salary provided for an employee per day is " $dailyWage
 else
 	echo "Sorry, the Employee is Absent"
 fi
