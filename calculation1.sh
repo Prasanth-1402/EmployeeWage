@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/usr/local/bin/bash
 
 
 #CONSTANTS
@@ -17,33 +17,61 @@ att=$((RANDOM%3))
 
 
 function getWorkHours(){
-	read -p "Enter the Work Hours :" Hours
+	read -p  "Enter the Work Hours :" Hours
 	hoursLimit=$Hours
 }
 
 getWorkHours
 
+declare -A DailyTotalWage
+
 case $att in 
 $IS_FULL_TIME)
 	echo "THIS IS A FULL TIME EMPLOYEE"
 	hours=8
-	while (( $hours<=hoursLimit ))
+
+	while (( $hours<=$hoursLimit ))
 	do
-		wage=$((hours*WAGE_PER_HR))
+		totalwage=$((hours*WAGE_PER_HR))
+		echo $totalwage
+		DailyTotalWage[$totalwage]=0	
 		hours=$((hours+8))	
 	done
-	echo "Salary provided for a Full Time employee  is " $wage
+	echo "Salary provided for a Full Time employee  is " $totalwage
+	hours=8
+
+	for(( i=$((hours*WAGE_PER_HR)); $i<=totalwage; i=$i+$((hours*WAGE_PER_HR))))
+	do	
+		DailyTotalWage[$i]=$totalwage
+	done
+
+
+	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE :     ${DailyTotalWage[*]}
+      
+	echo FULL TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  : 	  ${!DailyTotalWage[*]}
 		;;
 $IS_PART_TIME)
 	echo "THIS IS A PART TIME EMPLOYEE"
 	hours=4
-	while (( $hours<=hoursLimit ))
-	do
-		Wage=$((WAGE_PER_HR*hours))
-		hours=$((hours+4))
-	done
-	echo "Salary provided for a Part Time employee  is " $Wage
-		;;
+	while (( $hours<=$hoursLimit ))
+        do
+                totalwage=$((hours*WAGE_PER_HR))
+                echo $totalwage
+                DailyTotalWage[$totalwage]=0
+                hours=$((hours+4))
+        done
+        echo "Salary provided for a Part Time employee  is " $totalwage
+        hours=4
+
+        for(( i=$((hours*WAGE_PER_HR)); $i<=totalwage; i=$i+$((hours*WAGE_PER_HR))))
+        do
+                DailyTotalWage[$i]=$totalwage
+        done
+
+        echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY VALUE : 	${DailyTotalWage[*]}
+        echo PART TIME EMPLOYEE DAILY WAGE DICTIONARY KEYS  : 	${!DailyTotalWage[*]}
+                ;;
+
 *) 	
 	echo "Sorry, Employee is Absent"
 		;;
