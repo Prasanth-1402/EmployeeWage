@@ -4,11 +4,10 @@
 #CONSTANTS
 IS_PRESENT=1
 IS_ABSENT=0
-<<<<<<< HEAD
+
 WAGE_PER_HR=20
 FULL_DAY_HR=8
-=======
->>>>>>> master
+
 
 att=$((RANDOM%2))
 
